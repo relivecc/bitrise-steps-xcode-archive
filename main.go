@@ -393,19 +393,14 @@ func main() {
 	archiveCmd.SetDisableIndexWhileBuilding(cfg.DisableIndexWhileBuilding)
 	archiveCmd.SetArchivePath(tmpArchivePath)
 
-	destination := "generic/platform=" + string(platform)
-	options := []string{"-destination", destination}
+	options := []string{}
 	if cfg.XcodebuildOptions != "" {
 		userOptions, err := shellquote.Split(cfg.XcodebuildOptions)
 		if err != nil {
 			fail("Failed to shell split XcodebuildOptions (%s), error: %s", cfg.XcodebuildOptions)
 		}
 
-		if sliceutil.IsStringInSlice("-destination", userOptions) {
-			options = userOptions
-		} else {
-			options = append(options, userOptions...)
-		}
+		options = userOptions
 	}
 	archiveCmd.SetCustomOptions(options)
 
