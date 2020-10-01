@@ -332,11 +332,6 @@ func main() {
 		fail("Failed to open project: %s: %s", absProjectPath, err)
 	}
 
-	platform, err := utils.BuildableTargetPlatform(xcodeProj, scheme, configuration, utils.XcodeBuild{})
-	if err != nil {
-		fail("Failed to read project platform: %s: %s", absProjectPath, err)
-	}
-
 	mainTarget, err := archivableApplicationTarget(xcodeProj, scheme, configuration)
 	if err != nil {
 		fail("Failed to read main application target: %s", absProjectPath, err)
